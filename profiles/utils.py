@@ -17,10 +17,10 @@ def get_profile_model():
     model, as defined by the ``AUTH_PROFILE_MODULE`` setting. If that
     setting is missing, raise
     ``django.contrib.auth.models.SiteProfileNotAvailable``.
-    
+
     """
     if (not hasattr(settings, 'AUTH_PROFILE_MODULE')) or \
-           (not settings.AUTH_PROFILE_MODULE):
+            (not settings.AUTH_PROFILE_MODULE):
         raise SiteProfileNotAvailable
     profile_mod = get_model(*settings.AUTH_PROFILE_MODULE.split('.'))
     if profile_mod is None:
@@ -35,11 +35,13 @@ def get_profile_form():
     profile model, as defined by the ``AUTH_PROFILE_MODULE``
     setting. If that setting is missing, raise
     ``django.contrib.auth.models.SiteProfileNotAvailable``.
-    
+
     """
     profile_mod = get_profile_model()
+
     class _ProfileForm(forms.ModelForm):
         class Meta:
             model = profile_mod
-            exclude = ('user',) # User will be filled in by the view.
+            exclude = ('user',)  # User will be filled in by the view.
+
     return _ProfileForm
